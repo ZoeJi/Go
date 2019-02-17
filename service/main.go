@@ -13,3 +13,16 @@ type Post struct {
       Location Location `json:"location"`
 }
 
+func handlerPost(w http.ResponseWriter, r *http.Request) {
+      // Parse from body of request to get a json object.
+      fmt.Println("Received one post request")
+      decoder := json.NewDecoder(r.Body)
+      var p Post
+      if err := decoder.Decode(&p); err != nil {
+             panic(err)
+             return
+      }
+
+      fmt.Fprintf(w, "Post received: %s\n", p.Message)
+}
+
